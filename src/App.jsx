@@ -6,27 +6,28 @@ function App() {
   const [taille, setTaille] = useState("");
   const [resultat, setResultat] = useState(null);
 
-  // Configuration des tranches et messages
+  // Configuration des tranches, couleurs et messages en Français
   const tranches = [
-    { max: 18.5, classe: "imc-result-maigreur", texte: "Insuffisance pondérale : Le poids est considéré comme trop bas. Consultez votre médecin." },
-    { max: 25, classe: "imc-result-normal", texte: "Corpulence normale : Le poids est proportionnel à la taille, pas de souci particulier." },
-    { max: 30, classe: "imc-result-surpoids", texte: "Surpoids : Un léger surpoids, une activité physique peut aider à retrouver un poids de forme." },
-    { max: 35, classe: "imc-result-modere", texte: "Obésité modérée (stade 1) : Cet état peut avoir des conséquences sur la santé." },
-    { max: 40, classe: "imc-result-severe", texte: "Obésité sévère (stade 2) : Un suivi médical est recommandé." },
-    { max: Infinity, classe: "imc-result-morbide", texte: "Obésité morbide (stade 3) : Risques importants, un accompagnement médical est nécessaire." }
+    { max: 18.5, classe: "imc-result-maigreur", texte: "Insuffisance pondérale (Maigreur)" },
+    { max: 25, classe: "imc-result-normal", texte: "Corpulence normale" },
+    { max: 30, classe: "imc-result-surpoids", texte: "Surpoids" },
+    { max: 35, classe: "imc-result-modere", texte: "Obésité modérée (Classe I)" },
+    { max: 40, classe: "imc-result-severe", texte: "Obésité sévère (Classe II)" },
+    { max: Infinity, classe: "imc-result-morbide", texte: "Obésité morbide ou massive (Classe III)" }
   ];
 
   const calculerIMC = () => {
     const p = parseFloat(poids);
-    const t = parseFloat(taille) / 100;
+    const t = parseFloat(taille) / 100; // Conversion cm en mètres
 
     if (!p || !t || t <= 0) {
-      alert("Entrez des valeurs valides !");
+      alert("Veuillez entrer des valeurs valides pour le poids et la taille.");
       return;
     }
 
-    const imcValue = (p / (t * t)).toFixed(2);
-    // On trouve la bonne tranche
+    const imcValue = (p / (t * t)).toFixed(1); // Une seule décimale comme souvent demandé
+    
+    // Recherche de la tranche correspondante
     const info = tranches.find(tr => imcValue < tr.max) || tranches[tranches.length - 1];
     
     setResultat({
@@ -40,24 +41,24 @@ function App() {
     <div className="divi-imc-wrapper">
       <div className="imc-container">
         <div className="imc-header">
-          <h2>Calcola il tuo BMI</h2>
+          <h2>Calculer votre IMC</h2>
         </div>
         <div className="imc-body-card">
           <div className="imc-input-flex">
             <input 
               type="number" 
-              placeholder="Dimensioni (cm)" 
+              placeholder="Taille (cm)" 
               value={taille}
               onChange={(e) => setTaille(e.target.value)}
             />
             <input 
               type="number" 
-              placeholder="Peso (kg)" 
+              placeholder="Poids (kg)" 
               value={poids}
               onChange={(e) => setPoids(e.target.value)}
             />
           </div>
-          <button onClick={calculerIMC}>Calcolare</button>
+          <button onClick={calculerIMC}>Calculer</button>
         </div>
       </div>
 

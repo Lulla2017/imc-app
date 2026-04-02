@@ -1,8 +1,6 @@
 import React from "react";
 
-
 const Header = () => {
-
     return (
         <header className="header">
             <div>
@@ -11,10 +9,10 @@ const Header = () => {
             </div>
             <div>
                 <span>Catherine Braun</span>
-                <span>Laurent Boyer</sapn>
+                <span>Laurent Boyer</span>
             </div>
         </header>
     );
-}
+};
 
 export default Header;

@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from  'prop-types';
 
 const Button = ({
-                  label = 'Bouton',
-                  onClick = () => {},
-                  type = 'button',
-                  className = '',
-                  disabled = false
+                    type = 'button',
+                    onClick =() =>{},
+                    className='',
+                    disabled=false,
+                    children
                 }) => {
   return (
       <button
@@ -14,9 +15,18 @@ const Button = ({
           className={className}
           disabled={disabled}
       >
-        {label}
+        {children}
       </button>
   );
 };
+
+Button.propTypes ={
+    type: PropTypes.oneOf(['button', 'submit', 'reset']),
+    onclick: PropTypes.func,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    children: PropTypes.node,
+
+}
 
 export default Button;

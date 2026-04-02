@@ -45,7 +45,7 @@ const Form = ({
             </div>
             <Button
                 type="submit"
-                onClick={() => {}}
+                label={isLoading ? 'Calcul en cours...' : 'Calculer'}
                 disabled={isLoading}
                 className="btn-calculate"
             >

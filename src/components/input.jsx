@@ -9,6 +9,7 @@ const IMCInput = ({
                       label = '',
                       unit = '',
                       min = 0,
+                      max = 300,
                       step = 0.1,
                       id = '',
                       required = true,
@@ -36,6 +37,7 @@ const IMCInput = ({
                     required={required}
                     className={`imc-input-field ${isFocused ? 'focused' : ''} ${error ? 'error' : ''}`}
                     min={min}
+                    max={max}
                     step={step}
                     aria-label={label}
                     aria-required={required}
@@ -60,6 +62,7 @@ IMCInput.propTypes = {
     label: PropTypes.string,
     unit: PropTypes.string,
     min: PropTypes.number,
+    max: PropTypes.number,
     step: PropTypes.number,
     id: PropTypes.string,
     required: PropTypes.bool,

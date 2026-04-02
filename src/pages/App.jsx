@@ -1,29 +1,24 @@
+import React from 'react'
+import AppRouter from './Router.jsx'
 import { useState } from 'react'
-import './App.css'
+import {calculerIMC} from '../script/calc/imc.js'
+import '../style/App.css'
+
 
 function App() {
+
+  return(
+    <div id="form__Wrapper">
+      <AppRouter />
+    </div>
+  );
   const [poids, setPoids] = useState("");
   const [taille, setTaille] = useState("");
   const [resultat, setResultat] = useState(null);
 
-  // Configuration des tranches, couleurs et messages en Français
-  const tranches = [
-    { max: 18.5, classe: "imc-result-maigreur", texte: "Insuffisance pondérale (Maigreur)" },
-    { max: 25, classe: "imc-result-normal", texte: "Corpulence normale" },
-    { max: 30, classe: "imc-result-surpoids", texte: "Surpoids" },
-    { max: 35, classe: "imc-result-modere", texte: "Obésité modérée (Classe I)" },
-    { max: 40, classe: "imc-result-severe", texte: "Obésité sévère (Classe II)" },
-    { max: Infinity, classe: "imc-result-morbide", texte: "Obésité morbide ou massive (Classe III)" }
-  ];
 
-  const calculerIMC = () => {
-    const p = parseFloat(poids);
-    const t = parseFloat(taille) / 100; // Conversion cm en mètres
 
-    if (!p || !t || t <= 0) {
-      alert("Veuillez entrer des valeurs valides pour le poids et la taille.");
-      return;
-    }
+  
 
     const imcValue = (p / (t * t)).toFixed(1); // Une seule décimale comme souvent demandé
     
@@ -70,6 +65,5 @@ function App() {
       )}
     </div>
   );
-}
 
 export default App;

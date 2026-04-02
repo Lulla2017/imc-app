@@ -47,8 +47,8 @@ const Input = ({
             </div>
             {error && (
                 <span className="imc-input-error" role="alert">
-          {error}
-        </span>
+                    {error}
+                </span>
             )}
         </div>
     );

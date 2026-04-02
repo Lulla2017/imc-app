@@ -3,13 +3,13 @@ import React from "react";
 const Header = () => {
     return (
         <header className="header">
-            <div>
-                <h1>Calculer votre IMC!</h1>
-                <p>LP DWCA TP UE 6.3.1</p>
+            <div className={"header-title"}>
+                <h1 className={"title"}>Calculer votre IMC!</h1>
+                <p className={"quote"}>LP DWCA TP UE 6.3.1</p>
             </div>
-            <div>
-                <span>Catherine Braun</span>
-                <span>Laurent Boyer</span>
+            <div className={"authors"}>
+                <span className={"Catherine"}>Catherine Braun</span>
+                <span className={"Laurent"}>Laurent Boyer</span>
             </div>
         </header>
     );

@@ -26,6 +26,6 @@ Button.propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     children: PropTypes.node
-}
+};
 
 export default Button;

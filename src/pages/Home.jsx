@@ -19,11 +19,11 @@ const Home = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // ✅ Gérer le résultat de calculateIMC
+        // Gérer le résultat de calculateIMC
         calculateIMC();
     };
 
-    //Mémorisation du résultat pour éviter les appels multiples
+    // Mémorisation du résultat pour éviter les appels multiples
     const resultatMemo = useMemo(() => resultat, [resultat]);
 
     return (

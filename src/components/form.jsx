@@ -45,7 +45,6 @@ const Form = ({
             </div>
             <Button
                 type="submit"
-                label={isLoading ? 'Calcul en cours...' : 'Calculer'}
                 disabled={isLoading}
                 className="btn-calculate"
             >

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const IMCInput = ({
+const Input = ({
                       type = 'number',
                       placeholder = '',
                       value = '',
@@ -54,7 +54,7 @@ const IMCInput = ({
     );
 };
 
-IMCInput.propTypes = {
+Input.propTypes = {
     type: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -69,4 +69,4 @@ IMCInput.propTypes = {
     error: PropTypes.string
 };
 
-export default IMCInput;
+export default Input;

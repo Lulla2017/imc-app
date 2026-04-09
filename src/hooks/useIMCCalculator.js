@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { calculerIMC } from '../script/calc/imc.js';
+import Button from "../components/button.jsx";
 
 export const useIMCCalculator = () => {
     const [poids, setPoids] = useState("");
@@ -7,14 +8,6 @@ export const useIMCCalculator = () => {
     const [resultat, setResultat] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
-
-    // ✅ GETTERS
-    const getPoids = useCallback(() => poids, [poids]);
-    const getTaille = useCallback(() => taille, [taille]);
-    const getResultat = useCallback(() => resultat, [resultat]);
-    const getIsLoading = useCallback(() => isLoading, [isLoading]);
-    const getErrors = useCallback(() => errors, [errors]);
-
     // ✅ SETTERS
     const setPoidsValue = useCallback((value) => {
         setPoids(value);
@@ -50,7 +43,7 @@ export const useIMCCalculator = () => {
         return newErrors;
     }, [poids, taille]);
 
-    // ✅ CALCUL IMC - Retirer async car pas d'await
+    // ✅ CALCUL IMC -
     const calculateIMC = useCallback(() => {
         const validationErrors = validateInputs();
         setErrorsValue(validationErrors);
@@ -96,12 +89,6 @@ export const useIMCCalculator = () => {
     }, []);
 
     return {
-        // Getters
-        getPoids,
-        getTaille,
-        getResultat,
-        getIsLoading,
-        getErrors,
         // Setters
         setPoidsValue,
         setTailleValue,

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import Form from '../components/form';
 import { useIMCCalculator } from '../hooks/useIMCCalculator';
+import Button from '../components/button.jsx'
 
 const Home = () => {
     const {
@@ -14,6 +15,7 @@ const Home = () => {
         setPoidsValue,
         setTailleValue,
         // Methods
+        resetForm,
         calculateIMC
     } = useIMCCalculator();
 
@@ -22,6 +24,9 @@ const Home = () => {
         // Gérer le résultat de calculateIMC
         calculateIMC();
     };
+    const handleReset = () => {
+          resetForm();
+    }
 
     // Mémorisation du résultat pour éviter les appels multiples
     const resultatMemo = useMemo(() => resultat, [resultat]);
@@ -49,6 +54,12 @@ const Home = () => {
                 <div className={`imc-result ${resultatMemo.classe}`}>
                     <p id="result" className="imc-value">{resultatMemo.valeur}</p>
                     <p id="explanation" className="imc-text">{resultatMemo.texte}</p>
+                    <Button
+                        onClick={handleReset}
+                        className={'btn-reset'}
+                        >
+                        Réinitialiser
+                    </Button>
                 </div>
             )}
         </div>

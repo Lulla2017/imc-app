@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculateur IMC - Phase 2</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Ton design exact */
+    .divi-imc-wrapper { font-family: "Lato", sans-serif; max-width: 600px; margin: 20px auto; }
+    .imc-container { background-color: #fff; border-radius: 7px; box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.1); width: 100%; overflow: hidden; }
+    .imc-header { background-color: #18387d; padding: 10px 0; }
+    .imc-header h2 { text-align: center; font-weight: 500; margin: 0; font-size: 25px; color: white; }
+    .imc-body-card { padding: 30px; display: flex; flex-direction: column; align-items: center; }
+    .imc-input-flex { display: flex; gap: 10px; width: 100%; }
+    .imc-container input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #e5e5e5; background-color: #f6f6f6; border-radius: 5px; font-size: 16px; box-sizing: border-box; }
+    .imc-container button { width: 50%; padding: 12px; background-color: #18387d; color: white; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s ease; }
+    .imc-container button:hover { background-color: #29C4A9; }
+    
+    /* Styles des résultats */
+    .imc-result { margin-top: 20px; font-weight: 500; text-align: center; font-family: "Open Sans", sans-serif; border-radius: 7px; transition: all 0.4s ease; }
+    #result { font-size: 30px; font-weight: 600; margin: 0; }
+    #explanation { margin: 10px 0 0 0; font-size: 16px; line-height: 1.4; }
+
+    .imc-result-maigreur { color: #39a2bf; background-color: #39a2bf1c; padding: 30px; }
+    .imc-result-normal { color: #29C4A9; background-color: #29c4aa19; padding: 30px; }
+    .imc-result-surpoids { color: #ff9900; background-color: #ff99001a; padding: 30px; }
+    .imc-result-modere { color: #ff6600; background-color: #ff660020; padding: 30px; }
+    .imc-result-severe { color: #cf360f; background-color: #cf350f1f; padding: 30px; }
+    .imc-result-morbide { color: #c10000; background-color: #c1000022; padding: 30px; }
+
+    @media (max-width: 479px) {
+      .imc-input-flex { flex-direction: column; gap: 0; }
+      .imc-container button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [poids, setPoids] = useState("");
+      const [taille, setTaille] = useState("");
+      const [resultat, setResultat] = useState(null);
+
+      const tranches = [
+        { max: 18.5, classe: "imc-result-maigreur", texte: "Insuffisance pondérale : Le poids est considéré comme trop bas." },
+        { max: 25, classe: "imc-result-normal", texte: "Corpulence normale : Le poids est proportionnel à la taille." },
+        { max: 30, classe: "imc-result-surpoids", texte: "Surpoids : Il y a un léger surpoids." },
+        { max: 35, classe: "imc-result-modere", texte: "Obésité modérée (stade 1) : Une perte de poids est conseillée." },
+        { max: 40, classe: "imc-result-severe", texte: "Obésité sévère (stade 2) : Un suivi médical est recommandé." },
+        { max: Infinity, classe: "imc-result-morbide", texte: "Obésité morbide (stade 3) : Risques importants pour la santé." }
+      ];
+
+      const calculerIMC = () => {
+        const p = parseFloat(poids);
+        const t = parseFloat(taille) / 100;
+
+        if (!p || !t || t <= 0) {
+          alert("Veuillez entrer des valeurs valides.");
+          return;
+        }
+
+        const imcValue = (p / (t * t)).toFixed(2);
+        const info = tranches.find(tranche => imcValue < tranche.max);
+        
+        setResultat({
+          valeur: imcValue,
+          ...info
+        });
+      };
+
+      return (
+        <div className="divi-imc-wrapper">
+          <div className="imc-container">
+            <div className="imc-header">
+              <h2>Calculer votre IMC</h2>
+            </div>
+            <div className="imc-body-card">
+              <div className="imc-input-flex">
+                <input 
+                  type="number" 
+                  placeholder="Taille (cm)" 
+                  value={taille}
+                  onChange={(e) => setTaille(e.target.value)}
+                />
+                <input 
+                  type="number" 
+                  placeholder="Poids (kg)" 
+                  value={poids}
+                  onChange={(e) => setPoids(e.target.value)}
+                />
+              </div>
+              <button onClick={calculerIMC}>Calculer</button>
+            </div>
+          </div>
+
+          {resultat && (
+            <div className={`imc-result ${resultat.classe}`}>
+              <p id="result">{resultat.valeur}</p>
+              <p id="explanation">{resultat.texte}</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

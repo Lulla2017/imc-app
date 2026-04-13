@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>IMC Projet - Phase 1</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    .divi-imc-wrapper { font-family: "Lato", sans-serif; max-width: 600px; margin: 20px auto; }
+    .imc-container { background-color: #fff; border-radius: 7px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden; }
+    .imc-header { background-color: #18387d; padding: 15px; color: white; text-align: center; }
+    .imc-body { padding: 30px; display: flex; flex-direction: column; align-items: center; }
+    .imc-input-flex { display: flex; gap: 10px; width: 100%; margin-bottom: 20px; }
+    input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9; }
+    button { width: 50%; padding: 12px; background-color: #18387d; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .result-box { margin-top: 20px; text-align: center; padding: 20px; background: #eee; border-radius: 7px; border: 1px dashed #bbb; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // --- COMPOSANTS ENFANTS ---
+
+    // 1. L'entête
+    function Header(props) {
+      return (
+        <div className="imc-header">
+          <h2>{props.titre}</h2>
+        </div>
+      );
+    }
+
+    // 2. Le formulaire 
+    function ImcForm(props) {
+      return (
+        <div className="imc-body">
+          <div className="imc-input-flex">
+            <input type="number" placeholder={props.labelTaille} />
+            <input type="number" placeholder={props.labelPoids} />
+          </div>
+          <button>{props.labelBouton}</button>
+        </div>
+      );
+    }
+
+    // 3. L'affichage du résultat
+    function ResultDisplay(props) {
+      return (
+        <div className="result-box">
+          <p style={{fontSize: '24px', fontWeight: 'bold'}}>{props.valeur}</p>
+          <p>{props.message}</p>
+        </div>
+      );
+    }
+
+    // --- COMPOSANT PARENT ---
+    function App() {
+      return (
+        <div className="divi-imc-wrapper">
+          <div className="imc-container">
+            {/* On envoie les infos via les PROPS */}
+            <Header titre="Calculateur IMC - Phase 1" />
+            <ImcForm 
+              labelTaille="Taille (cm)" 
+              labelPoids="Poids (kg)" 
+              labelBouton="Calculer" 
+            />
+          </div>
+          <ResultDisplay 
+            valeur="--" 
+            message="Le calcul sera activé en Phase 2." 
+          />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { calculerIMC } from '../script/calc/imc.js';
-import Button from "../components/button.jsx";
+
 
 export const useIMCCalculator = () => {
     const [poids, setPoids] = useState("");
